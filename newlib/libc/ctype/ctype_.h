@@ -1,10 +1,17 @@
 /* Copyright (c) 2016 Corinna Vinschen <corinna@vinschen.de> */
 #include <ctype.h>
+#include <wchar.h>
+#include "setlocale.h"
 
 # define DEFAULT_CTYPE_PTR	((char *) _ctype_)
 
+#ifdef _MB_EXTENDED_CHARSETS_ANY
+void
+__set_ctype(enum locale_id, const char ** ctype);
+#else
 void
 __set_ctype (struct __locale_t *loc, const char *charset);
+#endif
 
 #define _CTYPE_DATA_0_127 \
 	_C,	_C,	_C,	_C,	_C,	_C,	_C,	_C, \

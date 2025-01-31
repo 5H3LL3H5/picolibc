@@ -41,10 +41,7 @@
 #include <stdlib.h>
 #include <regex.h>
 
-#ifdef __HAVE_LOCALE_INFO__
 #include "collate.h"
-#endif
-
 #include "utils.h"
 #include "regex2.h"
 
@@ -805,7 +802,7 @@ p_b_term(struct parse *p, cset *cs)
 		if (start == finish)
 			CHadd(cs, start);
 		else {
-#ifdef __HAVE_LOCALE_INFO__
+#ifdef _HAVE_REAL_STRCOLL
                     (void)REQUIRE(__collate_range_cmp(start, finish) <= 0, REG_ERANGE);
                     for (i = CHAR_MIN; i <= CHAR_MAX; i++) {
                         if (   __collate_range_cmp(start, i) <= 0
@@ -1884,7 +1881,7 @@ computejumps(struct parse *p, struct re_guts *g)
 		g->charjump[(unsigned char) g->must[mindex]] = g->mlen - mindex - 1;
 }
 
-#ifdef __GNUC__
+#ifdef __GNUCLIKE_PRAGMA_DIAGNOSTIC
 #pragma GCC diagnostic ignored "-Wpragmas"
 #pragma GCC diagnostic ignored "-Wunknown-warning-option"
 #pragma GCC diagnostic ignored "-Wanalyzer-out-of-bounds"
